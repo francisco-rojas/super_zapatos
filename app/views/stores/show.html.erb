@@ -1,0 +1,24 @@
+<p id="notice">
+  <%= notice %>
+</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h5><%= @store.name %> Details</h5></div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @store.name %></td>
+        <td><%= @store.address %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= link_to 'Edit', edit_store_path(@store),:class => "btn btn-link" %> |
+  <%= link_to 'Back', stores_path,:class => "btn btn-link" %>
+</div>
