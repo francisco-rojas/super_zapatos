@@ -5,8 +5,7 @@ describe Article do
   before do
     @required_attributes = [:name, :price, :store_id]
     @model_attributes = [:name, :description, :price, :total_in_shelf, :total_in_vault, :store_id]
-    @article = Article.new(name: "Super Boots", description: "Big shiny boots",
-                           price: 127.43, total_in_shelf: 1, total_in_vault: 2, store_id: 99)
+    @article = build(:article)
   end
 
   it "should respond to attributes" do
@@ -39,7 +38,7 @@ describe Article do
     end
 
     it "should have access to the associate model" do
-      @article.store.name.equal?("Super Zapatos San Jose")
+      @article.store.name.eql?("Super Zapatos San Jose")
     end
   end
 end

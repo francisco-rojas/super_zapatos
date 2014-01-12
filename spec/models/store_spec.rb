@@ -4,7 +4,7 @@ describe Store do
 
   before do
     @required_attributes = [:name, :address]
-    @store = Store.new(name: "Super Zapatos Alajuela", address: "Somewhere in Alajuela")
+    @store = build(:store)
   end
 
   it "should respond to attributes" do
@@ -39,7 +39,7 @@ describe Store do
     end
 
     it "should have access to the associate model" do
-      @store.articles.first.store_id.equal?(@store.id)
+      @store.articles.first.store_id.eql?(@store.id)
     end
   end
 end

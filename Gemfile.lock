@@ -47,6 +47,11 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     execjs (2.0.2)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     grape (0.6.1)
       activesupport
       builder
@@ -159,6 +164,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.0.3.0)
   coffee-rails (~> 4.0.0)
+  factory_girl_rails (~> 4.0)
   grape (>= 0.6.1)
   jbuilder (~> 1.2)
   jquery-rails

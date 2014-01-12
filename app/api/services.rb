@@ -4,16 +4,14 @@ module Services
     format :json
 
     http_basic do |username, password|
-      unless { ENV['API_USER'] => ENV['API_PASSWORD'] }[username] == password
-        error!('401 Unauthorized', 401)
-      end
+      { ENV['API_USER'] => ENV['API_PASSWORD'] }[username] == password
     end
 
     resource :stores do
       desc "Loads all the stores that are stored in the database."
       get '/' do
         store = Store.all
-        {"stores" => store.as_json(:only => [:id,:address,:name]), "success" => true, "total_elements" => store.count}
+        {"stores" => store.as_json(:only => [:id, :address, :name]), "success" => true, "total_elements" => store.count}
       end
     end
 
