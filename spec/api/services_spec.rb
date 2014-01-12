@@ -39,24 +39,26 @@ describe Services::API do
     end
   end
 
-  describe "Request errors" do
+  describe "Unsuccessful requests" do
+    it 'should return a bad request error' do
+      http_basic_login
+      error_msg = '{"success":false,"error_code":400,"error_msg":"Bad request"}'
 
-    describe "bad request errors" do
-      before do
-        http_basic_login
-      end
-      @wrong_requests = ["/services/articles/W", "/services/stores/W", "/services/articles/stores/W"]
-      it 'should return a 400 error' do
-        @wrong_requests.each do |url|
-          get url, {}, @env
-        end
-      end
+      get "/services/articles/stores/W", {}, @env
+      expect(response.status).to eql(400)
+      expect(response.body).to eql(error_msg)
     end
 
     it 'should return a Not authorized error' do
     end
 
     it 'should return a Record not found error' do
+      http_basic_login
+      error_msg = '{"success":false,"error_code":404,"error_msg":"Record not found"}'
+
+      get "/services/articles/stores/99", {}, @env
+      expect(response.status).to eql(404)
+      expect(response.body).to eql(error_msg)
     end
 
     it 'should return a Server Error error' do
