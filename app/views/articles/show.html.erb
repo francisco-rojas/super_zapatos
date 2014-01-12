@@ -1,2 +1,32 @@
-<h1>Articles#show</h1>
-<p>Find me in app/views/articles/show.html.erb</p>
+<p id="notice">
+  <%= notice %>
+</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h5><%= @article.name %> Details</h5></div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Total in shelf</th>
+        <th>Total in vault</th>
+        <th>Store</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @article.name %></td>
+        <td><%= @article.description %></td>
+        <td><%= @article.price %></td>
+        <td><%= @article.total_in_shelf %></td>
+        <td><%= @article.total_in_vault %></td>
+        <td><%= @article.store_name %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= link_to 'Edit', edit_article_path(@article),:class => "btn btn-link" %> |
+  <%= link_to 'Back', articles_path,:class => "btn btn-link" %>
+</div>

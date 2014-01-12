@@ -1,2 +1,12 @@
-<h1>Articles#edit</h1>
-<p>Find me in app/views/articles/edit.html.erb</p>
+<div class="panel panel-default">
+  <div class="panel-heading"><h5>Editing article</h5></div>
+  <div class="row edit-form">
+    <div class="col-md-4">
+      <%= render 'form' %>
+    </div>
+    <div class="col-md-8">
+    </div>
+  </div>
+  <%= link_to 'Show', @article,:class => "btn btn-link" %> |
+  <%= link_to 'Back', articles_path,:class => "btn btn-link" %>
+</div>

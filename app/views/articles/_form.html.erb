@@ -1,0 +1,41 @@
+<%= form_for(@article) do |f| %>
+  <% if @article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this store from being saved:</h2>
+
+      <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %><br>
+    <%= f.text_field :description, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :price %><br>
+    <%= f.text_field :price, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :total_in_shelf %><br>
+    <%= f.text_field :total_in_shelf, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :total_in_vault %><br>
+    <%= f.text_field :total_in_vault, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :store_id %><br>
+    <%= select(:article, :store_id, Store.all.collect {|store| [ store.name, store.id]})%>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Submit', class: "btn btn-primary" %>
+  </div>
+<% end %>

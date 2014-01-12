@@ -1,2 +1,37 @@
-<h1>Articles#index</h1>
-<p>Find me in app/views/articles/index.html.erb</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h5>Listing Articles</h5>
+    <%= link_to 'New Article', new_article_path, class: 'btn btn-primary btn-sm pull-right', role: 'button' %>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Total in shelf</th>
+        <th>Total in vault</th>
+        <th>Store</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.name %></td>
+          <td><%= article.description %></td>
+          <td><%= article.price %></td>
+          <td><%= article.total_in_shelf %></td>
+          <td><%= article.total_in_vault %></td>
+          <td><%= article.store_name %></td>
+          <td><%= link_to 'Show', article, class: 'btn btn-link' %></td>
+          <td><%= link_to 'Edit', edit_article_path(article), class: 'btn btn-link' %></td>
+          <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
