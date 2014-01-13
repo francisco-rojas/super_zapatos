@@ -49,9 +49,6 @@ describe Services::API do
       expect(response.body).to eql(error_msg)
     end
 
-    it 'should return a Not authorized error' do
-    end
-
     it 'should return a Record not found error' do
       http_basic_login
       error_msg = '{"success":false,"error_code":404,"error_msg":"Record not found"}'
@@ -61,7 +58,21 @@ describe Services::API do
       expect(response.body).to eql(error_msg)
     end
 
+    it 'should return a Not authorized error' do
+      error_msg = '{"success":false,"error_code": 401, "error_msg":"Not authorized"}'
+
+      get "/services/articles", {}, @env
+      expect(response.status).to eql(401)
+      expect(response.body).to eql(error_msg)
+    end
+
     it 'should return a Server Error error' do
+      http_basic_login
+      error_msg = '{"success":false,"error_code": 500, "error_msg":"Server error"}'
+
+      get "/services/articles", {}, @env
+      expect(response.status).to eql(500)
+      expect(response.body).to eql(error_msg)
     end
   end
 end

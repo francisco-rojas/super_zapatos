@@ -26,7 +26,7 @@ module Services
       get '/stores/:id' do
         if params[:id].to_i.to_s == params[:id]
           if Store.exists?(params[:id])
-            store_articles = Article.find_all_by_store_id(params[:id])
+            store_articles = Article.where(params[:id])
             {"articles" => store_articles.as_json(:methods => :store_name, :only => [:id,:description,:name,:price,:total_in_shelf,:total_in_vault]), "success" => true, "total_elements" => store_articles.count }
           else
             status(404)
@@ -36,7 +36,6 @@ module Services
           status(400)
           {"success" => false,"error_code" => 400, "error_msg" => "Bad request"}
         end
-
       end
     end
   end

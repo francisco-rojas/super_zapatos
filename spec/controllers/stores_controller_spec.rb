@@ -26,6 +26,7 @@ describe StoresController do
   describe "GET 'edit'" do
     it "returns http success" do
       get 'edit'
+      puts response
       expect(response).to be_success
     end
   end
