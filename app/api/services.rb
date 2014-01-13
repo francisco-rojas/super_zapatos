@@ -1,3 +1,5 @@
+require 'grape'
+
 module Services
   class API < Grape::API
     version 'v1', using: :accept_version_header
@@ -6,6 +8,14 @@ module Services
     content_type :json, 'application/json'
     default_format :json
     format :json
+
+    rescue_from :all do |e|
+      Rack::Response.new({
+        'success' => false,
+        'error_code' => 500,
+        'error_msg' => 'Server error'
+      }.to_json, 500)
+    end
 
     http_basic do |username, password|
       { 'my_user' => 'my_password' }[username] == password
@@ -33,14 +43,16 @@ module Services
             store_articles = Store.find(params[:id]).articles
             {"articles" => store_articles.as_json(:methods => :store_name, :only => [:id,:description,:name,:price,:total_in_shelf,:total_in_vault]), "success" => true, "total_elements" => store_articles.count }
           else
-            status(404)
-            {"success" => false,"error_code" => 404, "error_msg"=> "Record not found"}
+            error!({"success" => false,"error_code" => 404, "error_msg"=> "Record not found"}, 404)
           end
         else
-          status(400)
-          {"success" => false,"error_code" => 400, "error_msg" => "Bad request"}
+          error!({"success" => false,"error_code" => 400, "error_msg"=> "Bad request"}, 400)
         end
       end
+    end
+
+    route :any, '*path' do
+      error!({"success" => false,"error_code" => 400, "error_msg"=> "Bad request"}, 400)
     end
   end
 end
