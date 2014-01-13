@@ -49,7 +49,7 @@ describe Services::API do
       expect(response.body).to eql(error_msg)
     end
 
-    it 'should return a bad request error' do
+    it 'should return a bad request error too' do
       http_basic_login
       error_msg = '{"success":false,"error_code":400,"error_msg":"Bad request"}'
 
@@ -68,37 +68,21 @@ describe Services::API do
     end
 
     it 'should return a Not authorized error' do
-      error_msg = '{"success":false,"error_code": 401, "error_msg":"Not authorized"}'
+      error_msg = '{"success":false,"error_code": 401,"error_msg":"Not authorized"}'
 
       get "/services/articles", {}, @env
-      # puts response.status
-      # puts response
-      # puts response.body
       expect(response.status).to eql(401)
       expect(response.body).to eql(error_msg)
     end
 
-    it 'should return a Server Error error' do
-      http_basic_login
-      error_msg = '{"success":false,"error_code":500,"error_msg":"Server error"}'
-
-      get "/services/stores", {}, @env
-      expect(response.status).to eql(500)
-      expect(response.body).to eql(error_msg)
-    end
+    # it 'should return a Server Error' do
+      # error_msg = '{"success":false,"error_code":500,"error_msg":"Server error"}'
+#
+      # Services::API.any_instance.stub(:cars).and_raise(ArgumentError)
+      # http_basic_login
+      # get "services/cars", {}, @env
+      # expect(response.status).to eql(500)
+      # expect(response.body).to eql(error_msg)
+    # end
   end
 end
-
-# def other_error
-   # raise "ouch!"
-# end
-#
-# it "renders 500 on Runtime error" do
-  # get :other_error
-  # response.should render_template("errors/500")
-  # response.status.should == 500
-# end
-#
-# expect do
-  # Micropost.new(user_id: user.id)
-# end.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
