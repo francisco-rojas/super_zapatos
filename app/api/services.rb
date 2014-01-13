@@ -5,6 +5,7 @@ module Services
     version 'v1', using: :accept_version_header
 
     content_type :xml, 'application/xml'
+    formatter :xml, lambda { |object, env| object.to_xml(skip_types: true) }
     content_type :json, 'application/json'
     default_format :json
     format :json
