@@ -1,6 +1,10 @@
 module Services
   class API < Grape::API
-    version 'v1', using: :header, vendor: 'super_zapatos'
+    version 'v1', using: :accept_version_header
+
+    content_type :xml, 'application/xml'
+    content_type :json, 'application/json'
+    default_format :json
     format :json
 
     http_basic do |username, password|
@@ -10,8 +14,8 @@ module Services
     resource :stores do
       desc "Loads all the stores that are stored in the database."
       get '/' do
-        store = Store.all
-        {"stores" => store.as_json(:only => [:id, :address, :name]), "success" => true, "total_elements" => store.count}
+        stores = Store.all
+        {"stores" => stores.as_json(:only => [:id, :address, :name]), "success" => true, "total_elements" => stores.count}
       end
     end
 
@@ -26,7 +30,7 @@ module Services
       get '/stores/:id' do
         if params[:id].to_i.to_s == params[:id]
           if Store.exists?(params[:id])
-            store_articles = Article.where(params[:id])
+            store_articles = Store.find(params[:id]).articles
             {"articles" => store_articles.as_json(:methods => :store_name, :only => [:id,:description,:name,:price,:total_in_shelf,:total_in_vault]), "success" => true, "total_elements" => store_articles.count }
           else
             status(404)
