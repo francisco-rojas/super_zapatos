@@ -11,7 +11,8 @@ describe StoresController do
 
   describe "GET 'show'" do
     it "returns http success" do
-      get 'show'
+      store = create(:store)
+      get :show, id: store
       expect(response).to be_success
     end
   end
@@ -25,8 +26,8 @@ describe StoresController do
 
   describe "GET 'edit'" do
     it "returns http success" do
-      get 'edit'
-      puts response
+      store = create(:store)
+      get :edit, id: store
       expect(response).to be_success
     end
   end

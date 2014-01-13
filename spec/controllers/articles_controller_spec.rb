@@ -11,7 +11,8 @@ describe ArticlesController do
 
   describe "GET 'show'" do
     it "returns http success" do
-      get 'show'
+      article = create(:article)
+      get :edit, id: article
       expect(response).to be_success
     end
   end
@@ -25,7 +26,8 @@ describe ArticlesController do
 
   describe "GET 'edit'" do
     it "returns http success" do
-      get 'edit'
+      article = create(:article)
+      get :edit, id: article
       expect(response).to be_success
     end
   end
