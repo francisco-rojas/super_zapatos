@@ -11,15 +11,10 @@ module Services
     format :json
 
     rescue_from :all do |e|
-      if e.message == "Authentication error"
-        Rack::Response.new({'success' => false,'error_code' => 401,'error_msg' => 'Not authorized'}.to_json, 401)
-      else
-        Rack::Response.new({'success' => false,'error_code' => 500,'error_msg' => 'Server error'}.to_json, 500)
-      end
+      Rack::Response.new({'success' => false,'error_code' => 500,'error_msg' => 'Server error'}.to_json, 500)
     end
 
     http_basic do |username, password|
-      # raise("Authentication error") unless { 'my_user' => 'my_password' }[username] == password
       { 'my_user' => 'my_password' }[username] == password
     end
 
@@ -48,16 +43,19 @@ module Services
             store_articles = Store.find(params[:id]).articles
             {"articles" => store_articles.as_json(:methods => :store_name, :only => [:id,:description,:name,:price,:total_in_shelf,:total_in_vault]), "success" => true, "total_elements" => store_articles.count }
           else
-            error!(error_404, 404)
+            status(404)
+            error_404
           end
         else
-          error!(error_400, 400)
+          status(400)
+          error_400
         end
       end
     end
 
     route :any, '*path' do
-      error!(error_400, 400)
+      status(400)
+      error_400
     end
   end
 end

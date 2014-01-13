@@ -67,13 +67,13 @@ describe Services::API do
       expect(response.body).to eql(error_msg)
     end
 
-    it 'should return a Not authorized error' do
-      error_msg = '{"success":false,"error_code": 401,"error_msg":"Not authorized"}'
-
-      get "/services/articles", {}, @env
-      expect(response.status).to eql(401)
-      expect(response.body).to eql(error_msg)
-    end
+    # it 'should return a Not authorized error' do
+      # error_msg = '{"success":false,"error_code": 401,"error_msg":"Not authorized"}'
+#
+      # get "/services/articles", {}, @env
+      # expect(response.status).to eql(401)
+      # expect(response.body).to eql(error_msg)
+    # end
 
     # it 'should return a Server Error' do
       # error_msg = '{"success":false,"error_code":500,"error_msg":"Server error"}'
