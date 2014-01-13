@@ -22,15 +22,6 @@ module SuperZapatos
     config.i18n.enforce_available_locales = true
 
     # Reads the 'local_env.yml' file to get local variables
-    config.before_configuration do
-      env_file = File.join(Rails.root, 'config', 'local_env.yml')
-      if File.exists?(env_file)
-        YAML.load(File.open(env_file))[Rails.env].each do |key, value|
-          ENV[key.to_s] = value.to_s
-        end
-      end
-    end
-
     config.paths.add "app/api", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
   end

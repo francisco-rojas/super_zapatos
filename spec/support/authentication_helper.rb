@@ -2,8 +2,8 @@
 module AuthenticationHelper
   def http_basic_login
     @env ||= {}
-    user = ENV['API_USER']
-    password = ENV['API_PASSWORD']
+    user = 'my_user'
+    password = 'my_password'
     @env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,password)
   end
 end

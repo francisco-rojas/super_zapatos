@@ -4,7 +4,7 @@ module Services
     format :json
 
     http_basic do |username, password|
-      { ENV['API_USER'] => ENV['API_PASSWORD'] }[username] == password
+      { 'my_user' => 'my_password' }[username] == password
     end
 
     resource :stores do
